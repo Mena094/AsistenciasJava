@@ -18,7 +18,7 @@ public class Grupo {
     @Nullable
     private String descripcion;
 
-    /////////////////////Getter and setter///////////////////////
+  
 
     public Integer getId() {
         return id;
