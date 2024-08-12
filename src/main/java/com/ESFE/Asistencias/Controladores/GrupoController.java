@@ -10,10 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -57,8 +54,40 @@ public class GrupoController {
             attributes.addFlashAttribute("error", "No se puede guardar debido a un error");
             return "grupo/create";
         }
+        boolean isEdit = grupo.getId() != null && grupo.getId() > 0;
         grupoService.CreaOeditar(grupo);
-        attributes.addFlashAttribute("msg", "Creado Correctamente");
+        if (isEdit) {
+            attributes.addFlashAttribute("msg", "Editado Correctamente");
+        } else {
+            attributes.addFlashAttribute("msg", "Creado Correctamente");
+        }
+        return "redirect:/grupos";
+    }
+
+    @GetMapping("/details/{id}")
+    public String Integer(@PathVariable("id") Integer id, Model model){
+        Grupo grupo = grupoService.BuscarporId(id).get();
+         model.addAttribute( "grupo", grupo );
+        return "grupo/details";
+    }
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable Integer id, Model model){
+        Grupo grupo = grupoService.BuscarporId(id).get();
+        model.addAttribute( "grupo", grupo );
+        return "grupo/edit";
+    }
+
+    @GetMapping("/remove/{id}")
+    public String remove (@PathVariable("id") Integer id, Model model){
+        Grupo grupo = grupoService.BuscarporId(id).get();
+       model.addAttribute(  "grupo", grupo);
+        return "grupo/delete";
+    }
+
+    @PostMapping("/delete")
+    public String delete(Grupo grupo, RedirectAttributes attributes) {
+        grupoService.EliminarPorId(grupo.getId());
+        attributes.addFlashAttribute("msg", "Grupo eliminado correctamente");
         return "redirect:/grupos";
     }
 }
