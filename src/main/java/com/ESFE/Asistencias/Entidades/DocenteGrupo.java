@@ -10,11 +10,11 @@ public class DocenteGrupo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToMany
+    @ManyToOne
     @JoinColumn(name = "docente_id")
     private Docente docente;
 
-    @ManyToMany
+    @ManyToOne
     @JoinColumn(name = "grupo_id")
     private Grupo grupo;
 

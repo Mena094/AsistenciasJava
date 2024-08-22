@@ -19,7 +19,7 @@ public class DocenteGrupoService implements IDocenteGrupoService {
 
     @Override
     public Page<DocenteGrupo> buscarTodosPaginados(Pageable pageable) {
-        return docenteGrupoRepository.findByOrderByTeacherDesc(pageable);
+        return docenteGrupoRepository.findByOrderByDocenteDesc(pageable);
     }
 
     @Override
