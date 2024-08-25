@@ -34,7 +34,7 @@ public class DatabaseWebSecurity {
                 .requestMatchers("/", "/privacy", "/terms").permitAll()
                 // todas las demás vistas requieren autenticación
                 .anyRequest().authenticated());
-        http.formLogin(form -> form.permitAll());
+        http.formLogin(form -> form.loginPage("/login").permitAll());
 
         return http.build();
     }
