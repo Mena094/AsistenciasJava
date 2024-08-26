@@ -1,5 +1,27 @@
-<html lang="en" xmlns:layout="http:www.ultraq.net.nz/thymeleaf/layout"
-                        layout:decorate="/layouts/_mainLayout">
-<div layout:fragment="content">
-    <h1>Bienvenido</h1>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<!-- Aplicar el layout solo si el usuario está autenticado -->
+<div sec:authorize="isAuthenticated()">
+    <html lang="en"
+          xmlns:th="http://www.thymeleaf.org"
+          xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+          layout:decorate="/layouts/_mainLayout">
+    <div layout:fragment="content">
+        <h1>Bienvenido</h1>
+        <!-- Más contenido para usuarios autenticados -->
+    </div>
 </div>
+
+<!-- Mostrar contenido sin layout si el usuario no está autenticado -->
+<div sec:authorize="!isAuthenticated()">
+    <link rel="stylesheet" th:href="@{/plugins/fontawesome-free/css/all.min.css}">
+    <!-- Theme style -->
+    <link rel="stylesheet" th:href="@{/dist/css/adminlte.min.css}">
+
+    <div class="container text-center mt-5">
+        <h1><i class="bi bi-exclamation-circle"></i> No estás autenticado</h1>
+        <a href="/login" class="btn btn-primary mt-3">Iniciar Sesión</a>
+    </div>
+</div>
+
+</html>
