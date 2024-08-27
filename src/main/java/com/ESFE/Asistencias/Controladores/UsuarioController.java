@@ -74,8 +74,6 @@ public class UsuarioController {
                 .map(Optional::get)
                 .collect(Collectors.toList());
         usuario.setRoles(roles);
-        usuario.setStatus(1);
-        usuario.setRoles(roles);
 
         boolean isEdit = usuario.getId() != null && usuario.getId() > 0;
         usuarioService.crearOEditar(usuario);
