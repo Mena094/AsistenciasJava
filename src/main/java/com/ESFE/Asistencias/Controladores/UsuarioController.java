@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,6 +29,9 @@ public class UsuarioController {
 
     @Autowired
     private IRolService rolService; // Servicio para manejar roles
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping
     public String index(Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
@@ -74,6 +78,9 @@ public class UsuarioController {
                 .map(Optional::get)
                 .collect(Collectors.toList());
         usuario.setRoles(roles);
+
+        String password = passwordEncoder.encode(usuario.getClave()); // Codificar la clave
+        usuario.setClave(password);
 
         boolean isEdit = usuario.getId() != null && usuario.getId() > 0;
         usuarioService.crearOEditar(usuario);

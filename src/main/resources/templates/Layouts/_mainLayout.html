@@ -207,14 +207,14 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
-                            <li class="nav-item">
+                            <li class="nav-item" sec:authorize="hasAnyAuthority('admin')">
                                 <!-- Añadí una nueva opción en el submenú -->
                                 <a th:href="@{/grupos}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Grupos</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item" sec:authorize="hasAnyAuthority('admin')">
                                 <a th:href="@{/docentes}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Docentes</p>
@@ -230,7 +230,7 @@
                         </ul>
                     </li>
                     <!-- Reportes Menu -->
-                    <li class="nav-item">
+                    <li class="nav-item" sec:authorize="hasAnyAuthority('admin')">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-chart-bar"></i>
                             <p>
